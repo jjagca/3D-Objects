@@ -1,53 +1,36 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2566">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
-    span.s1 {font-kerning: none}
+  <meta charset="UTF-8" />
+  <title>3D Model Viewer</title>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    model-viewer {
+      width: 100%;
+      max-width: 800px;
+      height: 600px;
+    }
   </style>
 </head>
 <body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;html lang="en"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;title&gt;3D Model Viewer&lt;/title&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"&gt;&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;style&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: #111;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>justify-content: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>height: 100vh;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>model-viewer {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>width: 100%;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>max-width: 800px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>height: 600px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
-<p class="p1"><span class="s1">&lt;body&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;model-viewer</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>src="model.glb"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>alt="A 3D model"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>auto-rotate</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>camera-controls</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>environment-image="neutral"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>shadow-intensity="1"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>shadow-softness="1"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>exposure="1.2"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>interaction-prompt="none"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/model-viewer&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+  <model-viewer
+    src="model.glb"
+    alt="A 3D model"
+    auto-rotate
+    camera-controls
+    environment-image="neutral"
+    shadow-intensity="1"
+    shadow-softness="1"
+    exposure="1.2"
+    interaction-prompt="none">
+  </model-viewer>
 </body>
 </html>
