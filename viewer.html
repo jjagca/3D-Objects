@@ -50,31 +50,40 @@
 
     const loader = new GLTFLoader();
     loader.load(modelPath, (gltf) => {
-      const model = gltf.scene;
+  const model = gltf.scene;
 
-      // Center and scale model to fit view
-      const box = new THREE.Box3().setFromObject(model);
-      const size = box.getSize(new THREE.Vector3()).length();
-      const center = box.getCenter(new THREE.Vector3());
+  // Auto-center based on visible meshes
+  const bbox = new THREE.Box3();
+  let firstMesh = null;
 
-      model.position.x += (model.position.x - center.x);
-      model.position.y += (model.position.y - center.y);
-      model.position.z += (model.position.z - center.z);
+  model.traverse((child) => {
+    if (child.isMesh) {
+      if (!firstMesh) firstMesh = child;
+      bbox.expandByObject(child);
+    }
+  });
 
-      const scaleFactor = 2 / size;
-      model.scale.setScalar(scaleFactor);
+  if (firstMesh) {
+    const size = bbox.getSize(new THREE.Vector3()).length();
+    const center = bbox.getCenter(new THREE.Vector3());
 
-      // Add bounding box for debugging
-      const helper = new THREE.BoxHelper(model, 0xffff00);
-      scene.add(helper);
+    model.position.x += (model.position.x - center.x);
+    model.position.y += (model.position.y - center.y);
+    model.position.z += (model.position.z - center.z);
 
-      scene.add(model);
-    }, (xhr) => {
-      console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-    }, (error) => {
-      alert('Model failed to load. Check the filename and path.');
-      console.error('Error loading model:', error);
-    });
+    const scaleFactor = 2 / size;
+    model.scale.setScalar(scaleFactor);
+
+    // Optional: add yellow box for first mesh
+    const helper = new THREE.BoxHelper(firstMesh, 0xffff00);
+    scene.add(helper);
+
+    scene.add(model);
+  } else {
+    alert('No mesh found in model.');
+    console.warn('Model loaded, but no meshes found:', model);
+  }
+});
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
