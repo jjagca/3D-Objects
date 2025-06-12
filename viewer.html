@@ -22,12 +22,10 @@
     import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/loaders/GLTFLoader.js';
     import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/controls/OrbitControls.js';
 
-    // Get model name from URL param
     const params = new URLSearchParams(window.location.search);
     const modelName = params.get('model');
     const modelPath = `models/${modelName}`;
 
-    // Scene setup
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.set(0, 1.5, 3);
@@ -38,7 +36,6 @@
     renderer.outputEncoding = THREE.sRGBEncoding;
     document.body.appendChild(renderer.domElement);
 
-    // Lighting
     const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1);
     hemiLight.position.set(0, 1, 0);
     scene.add(hemiLight);
@@ -48,31 +45,49 @@
     dirLight.castShadow = true;
     scene.add(dirLight);
 
-    // Load GLB model
+    const ambient = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambient);
+
     const loader = new GLTFLoader();
     loader.load(modelPath, (gltf) => {
       const model = gltf.scene;
-      model.position.set(0, 0, 0);
+
+      // Center and scale model to fit view
+      const box = new THREE.Box3().setFromObject(model);
+      const size = box.getSize(new THREE.Vector3()).length();
+      const center = box.getCenter(new THREE.Vector3());
+
+      model.position.x += (model.position.x - center.x);
+      model.position.y += (model.position.y - center.y);
+      model.position.z += (model.position.z - center.z);
+
+      const scaleFactor = 2 / size;
+      model.scale.setScalar(scaleFactor);
+
+      // Add bounding box for debugging
+      const helper = new THREE.BoxHelper(model, 0xffff00);
+      scene.add(helper);
+
       scene.add(model);
-    }, undefined, (error) => {
+    }, (xhr) => {
+      console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+    }, (error) => {
+      alert('Model failed to load. Check the filename and path.');
       console.error('Error loading model:', error);
     });
 
-    // Controls
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.enablePan = false;
     controls.minDistance = 1;
     controls.maxDistance = 10;
 
-    // Handle resize
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // Animate
     function animate() {
       requestAnimationFrame(animate);
       controls.update();
