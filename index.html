@@ -1,37 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>3D Model Viewer</title>
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      background: #111;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    model-viewer {
-      width: 100%;
-      max-width: 800px;
-      height: 600px;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <title>3D Model Viewer</title>
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+        }
+
+        body {
+            background: #fff;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
 </head>
 <body>
-  <model-viewer
-    src="model.glb"
-    alt="A 3D model"
-    auto-rotate
-    camera-controls
-    environment-image="neutral"
-    shadow-intensity="1"
-    shadow-softness="1"
-    exposure="1.2"
-    interaction-prompt="none"
-  >
-  </model-viewer>
+    <script type="module" src="/main.js"></script>
 </body>
 </html>
