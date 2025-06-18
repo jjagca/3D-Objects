@@ -4,7 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 const params = new URLSearchParams(window.location.search);
 const modelName = params.get('model');
-const modelPath = `models/${modelName}`;
+const modelPath = `models_optimized/${modelName}`;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 100);
