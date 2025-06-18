@@ -27,7 +27,11 @@ jobs:
         for f in public/models/*.glb; do
           basename=$(basename "$f")
           echo "Optimizing: $basename"
-          ./tools/gltfpack -i "$f" -o "public/models_optimized/$basename" -cc
+          if ./tools/gltfpack -i "$f" -o "public/models_optimized/$basename" -cc; then
+            echo "✅ Successfully optimized: $basename"
+          else
+            echo "⚠ Skipping invalid GLB: $basename"
+          fi
         done
 
     - name: Build with Vite
